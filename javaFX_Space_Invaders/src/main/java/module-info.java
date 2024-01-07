@@ -7,6 +7,7 @@ module com.example.javafx_space_invaders {
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
     requires javafx.media;
+    requires java.desktop;
 
     opens com.example.javafx_space_invaders to javafx.fxml;
     exports com.example.javafx_space_invaders;

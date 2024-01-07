@@ -18,17 +18,14 @@ class SpaceInvadersTest {
         SpaceInvaders spaceInvaders = new SpaceInvaders();
         spaceInvaders.loadImages();
 
-        // Add assertions to check if images are loaded successfully
         assertNotNull(spaceInvaders.ENEMY_IMG);
         assertNotNull(spaceInvaders.PLAYER_IMG);
     }
 
     @Test
     void checkFilePath() {
-        // Set the static variable version for the test
         SpaceInvaders.version = "comic/c";
 
-        // Call the loadImages method to initialize ENEMY_IMG array
         SpaceInvaders.loadImages();
 
         // Assuming version "comic/c" will generate the file path "file:./images/comic/c1.png"
@@ -42,35 +39,27 @@ class SpaceInvadersTest {
     void music() {
         SpaceInvaders spaceInvaders = new SpaceInvaders();
 
-        // Test for version "8bit/b"
         spaceInvaders.setVersion("8bit/b");
         assertEquals("b.mp3", spaceInvaders.music());
 
-        // Test for version "sw/SW"
         spaceInvaders.setVersion("sw/SW");
         assertEquals("SW.mp3", spaceInvaders.music());
 
-        // Test for version "st/ST"
         spaceInvaders.setVersion("st/ST");
         assertEquals("ST.mp3", spaceInvaders.music());
 
-        // Test for unknown version
         spaceInvaders.setVersion("unknownVersion");
         assertEquals("c.mp3", spaceInvaders.music());
     }
     @Test
     void distance() {
         SpaceInvaders spaceInvaders = new SpaceInvaders();
-
-        // Test distance between two points
         int result = spaceInvaders.distance(0, 0, 3, 4);
         assertEquals(5, result);
     }
     @Test
     void distance0() {
         SpaceInvaders spaceInvaders = new SpaceInvaders();
-
-        // Test distance between two points
         int result = spaceInvaders.distance(0, 0, 0, 0);
         assertEquals(0, result);
     }
