@@ -269,12 +269,15 @@ public class SpaceInvaders extends Application {
             destroyed = explosionStep > EXPLOSION_STEPS;
         }
 
+        /**
+         * Selecting and applying right explosion effect based on game version
+         */
+
         public void draw() {
             if (exploding) {
                 if (version.contains("8bit/b")) {
                     gc.drawImage(EXPLOSION_8_IMG, posX, posY, size, size);
                 } else {
-                    // Draw the regular explosion image
                     gc.drawImage(EXPLOSION_IMG, explosionStep % EXPLOSION_COL * EXPLOSION_W,
                             (explosionStep / EXPLOSION_ROWS) * EXPLOSION_H + 1,
                             EXPLOSION_W, EXPLOSION_H,
