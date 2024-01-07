@@ -7,15 +7,11 @@ import javafx.stage.Stage;
 import org.controlsfx.control.spreadsheet.SpreadsheetCell;
 
 public class HelloController {
-    @FXML
-    private Label welcomeText;
 
     @FXML
     protected void onHelloButtonClick() {
-        // Create an instance of SpaceInvaders
         SpaceInvaders spaceInvaders = new SpaceInvaders();
 
-        // Launch the game
         try {
             spaceInvaders.start(new Stage());
         } catch (Exception e) {
@@ -25,13 +21,8 @@ public class HelloController {
 
     @FXML
     private void onCreditsButtonClick(ActionEvent event) {
-        // Load the Credits scene
         SceneLoader.loadScene("Credit.fxml");
     }
-
-//    public void onVersionButtonClick(ActionEvent actionEvent) {
-//        SpaceInvaders.setVersion("8bit/b");
-//    }
 
     public void onRetroButtonClick(ActionEvent actionEvent) {
         SpaceInvaders.setVersion("8bit/b");

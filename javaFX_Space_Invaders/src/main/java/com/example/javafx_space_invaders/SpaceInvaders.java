@@ -23,6 +23,11 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 
+/**
+ * The SpaceInvaders class represents the main application for the Space Invaders game.
+ * It handles game initialization, rendering, and user input.
+ */
+
 public class SpaceInvaders extends Application {
 
     public static final Random RAND = new Random();
@@ -38,21 +43,25 @@ public class SpaceInvaders extends Application {
     static final int EXPLOSION_H = 128;
     static final int EXPLOSION_STEPS = 15;
 
-    //static String version;
 
+
+    /**
+     * The version of the game, determining the appearance of game elements.
+     */
+    //static String version;
+    static String version = "comic/c";
     //static String version = "8bit/b";
     //static String version = "sw/SW";
     //static String version = "st/ST";
-    static String version = "comic/c";
 
-    static Image[] BOMBS_IMG;
+    static Image[] ENEMY_IMG;
     static Image PLAYER_IMG;
 
     static int maxScore = 0;
 
 
     static void loadImages(){
-        BOMBS_IMG = new Image[]{
+        ENEMY_IMG = new Image[]{
                 new Image("file:./images/" + version + "1.png"),
                 new Image("file:./images/" + version + "2.png"),
                 new Image("file:./images/" + version + "3.png"),
@@ -67,38 +76,11 @@ public class SpaceInvaders extends Application {
         };
         PLAYER_IMG = new Image("file:./images/" + version + ".png");
     }
-//    Image[] BOMBS_IMG = {
-//            new Image("file:./images/" + version + "1.png"),
-//            new Image("file:./images/" + version + "2.png"),
-//            new Image("file:./images/" + version + "3.png"),
-//            new Image("file:./images/" + version + "4.png"),
-//            new Image("file:./images/" + version + "5.png"),
-//            new Image("file:./images/" + version + "6.png"),
-//            new Image("file:./images/" + version + "7.png"),
-//            new Image("file:./images/" + version + "8.png"),
-//            new Image("file:./images/" + version + "9.png"),
-//            new Image("file:./images/" + version + "10.png"),
-//
-//    };
 
-//    static final Image BOMBS_IMG[] = {
-//            for (int i = 1; i <= 17; i++) {
-//        String filename = "file:./images/comic/" + "c" + i + ".png";
-//        BOMBS_IMG[i - 1] = new Image(filename);
-//    }
-
-//    String musicFile = "file:./test.mp3";
-//
-//        Media sound = new Media(musicFile);
-//        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-//        mediaPlayer.play();
-
-
-
-
-
-
-    final int MAX_BOMBS = 10;
+    /**
+     * The maximum number of enemies in the game.
+     */
+    final int MAX_ENEMIES = 10;
     int maxShots = 10;
     boolean gameOver = false;
     GraphicsContext gc;
@@ -106,7 +88,7 @@ public class SpaceInvaders extends Application {
     Rocket player;
     List<Shot> shots;
     List<Universe> univ;
-    List<Bomb> bombs;
+    List<Enemy> enemies;
 
     private double mouseX;
     private double mouseY;
@@ -141,10 +123,6 @@ public class SpaceInvaders extends Application {
         return musicFile;
     }
 
-
-
-    //String musicFile = "comic/c.mp3";
-    //Media sound = new Media(new File(musicFile).toURI().toString());
     Media sound = new Media(new File(music()).toURI().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
@@ -173,50 +151,24 @@ public class SpaceInvaders extends Application {
         stage.setTitle("Space Invaders");
         stage.show();
 
-        //String musicFile = "./test.mp3";
-
-//        File file = new File("file:./test.mp3");
-//        File file = new File("./test.mp3");
-//        Media sound = new Media(file.toURI().toString());
-//        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-//        mediaPlayer.play();
-
-        //nevim jak ale totalne mi to zasekalo hru a zacalo se otevirat nekolik instanci najednou
-
-//        try {
-//            String musicFilePath = "./test.mp3";
-//            File file = new File(musicFilePath);
-//
-//            if (!file.exists()) {
-//                throw new RuntimeException("File not found: " + musicFilePath);
-//            }
-//
-//            Media sound = new Media(file.toURI().toString());
-//            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-//            mediaPlayer.play();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-//        String musicFile = "test.mp3";
-//        Media sound = new Media(new File(musicFile).toURI().toString());
-//        MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.setVolume(0.09);
         mediaPlayer.play();
 
         stage.setOnCloseRequest(event -> {
-            // Stop the music when the window is closed
             mediaPlayer.stop();
         });
     }
 
+    /**
+     * Initializes the game state, creating instances of the player, enemies, shots, and universe.
+     */
     private void setup() {
         univ = new ArrayList<>();
         shots = new ArrayList<>();
-        bombs = new ArrayList<>();
+        enemies = new ArrayList<>();
         player = new Rocket(WIDTH / 2, HEIGHT - PLAYER_SIZE, PLAYER_SIZE, PLAYER_IMG);
         score = 0;
-        IntStream.range(0, MAX_BOMBS).mapToObj(i -> this.newBomb()).forEach(bombs::add);
+        IntStream.range(0, MAX_ENEMIES).mapToObj(i -> this.newEnemy()).forEach(enemies::add);
     }
 
     public void run(GraphicsContext gc) {
@@ -255,7 +207,7 @@ public class SpaceInvaders extends Application {
         player.draw();
         player.posX = (int) mouseX;
 
-        bombs.stream().peek(Rocket::update).peek(Rocket::draw).forEach(e -> {
+        enemies.stream().peek(Rocket::update).peek(Rocket::draw).forEach(e -> {
             if(player.colide(e) && !player.exploding) {
                 player.explode();
             }
@@ -270,18 +222,18 @@ public class SpaceInvaders extends Application {
             }
             shot.update();
             shot.draw();
-            for (Bomb bomb : bombs) {
-                if(shot.colide(bomb) && !bomb.exploding) {
+            for (Enemy enemy : enemies) {
+                if(shot.colide(enemy) && !enemy.exploding) {
                     score++;
-                    bomb.explode();
+                    enemy.explode();
                     shot.toRemove = true;
                 }
             }
         }
 
-        for (int i = bombs.size() - 1; i >= 0; i--){
-            if(bombs.get(i).destroyed)  {
-                bombs.set(i, newBomb());
+        for (int i = enemies.size() - 1; i >= 0; i--){
+            if(enemies.get(i).destroyed)  {
+                enemies.set(i, newEnemy());
             }
         }
 
@@ -346,11 +298,16 @@ public class SpaceInvaders extends Application {
         }
     }
 
-    public class Bomb extends Rocket {
+    /**
+     * The Enemy class represents a enemy in the Space Invaders game, extending the Rocket class.
+     * It includes methods for updating the enemies position based on speed.
+     */
+
+    public class Enemy extends Rocket {
 
         int SPEED = (score/5)+2;
 
-        public Bomb(int posX, int posY, int size, Image image) {
+        public Enemy(int posX, int posY, int size, Image image) {
             super(posX, posY, size, image);
         }
 
@@ -361,10 +318,15 @@ public class SpaceInvaders extends Application {
         }
     }
 
-    Bomb newBomb() {
-        return new Bomb(50 + RAND.nextInt(WIDTH - 100),
+    /**
+     * Creates a new instance of the Enemy class with random attributes.
+     *
+     * @return A new Enemy instance.
+     */
+    Enemy newEnemy() {
+        return new Enemy(50 + RAND.nextInt(WIDTH - 100),
                 0, PLAYER_SIZE,
-                BOMBS_IMG[RAND.nextInt(BOMBS_IMG.length)]);
+                ENEMY_IMG[RAND.nextInt(ENEMY_IMG.length)]);
     }
 
     int distance(int x1, int y1, int x2, int y2) {
