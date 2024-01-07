@@ -57,16 +57,19 @@ public class Shot {
         if (spaceInvaders.score >= lvl_2 && spaceInvaders.score < lvl_3) {
             spaceInvaders.gc.setFill(Color.BLUE);
             speed = 50;
+            SpaceInvaders.maxEnemies = 15;
             spaceInvaders.maxShots = 15;
             spaceInvaders.gc.fillOval(posX - 5, posY - 10, size + 3, size + 7);
         } else if (spaceInvaders.score >= lvl_3 && spaceInvaders.score < lvl_4) {
             spaceInvaders.gc.setFill(Color.YELLOWGREEN);
             speed = 70;
+            SpaceInvaders.maxEnemies = 20;
             spaceInvaders.maxShots = 20;
             spaceInvaders.gc.fillOval(posX - 5, posY - 10, size + 3, size + 7);
         } else if (spaceInvaders.score >= lvl_4) {
             spaceInvaders.gc.setFill(Color.PAPAYAWHIP);
             speed = 100;
+            SpaceInvaders.maxEnemies = 25;
             spaceInvaders.maxShots = 25;
             spaceInvaders.gc.fillOval(posX - 5, posY - 10, size + 3, size + 7);
         } else {

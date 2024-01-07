@@ -30,6 +30,7 @@ import java.util.stream.IntStream;
 
 public class SpaceInvaders extends Application {
 
+
     public static final Random RAND = new Random();
     public static final int WIDTH = 800;
     private static final int HEIGHT = 900;
@@ -80,7 +81,7 @@ public class SpaceInvaders extends Application {
     /**
      * The maximum number of enemies in the game.
      */
-    final int MAX_ENEMIES = 10;
+    public static int maxEnemies = 10;
     int maxShots = 10;
     boolean gameOver = false;
     GraphicsContext gc;
@@ -168,7 +169,8 @@ public class SpaceInvaders extends Application {
         enemies = new ArrayList<>();
         player = new Rocket(WIDTH / 2, HEIGHT - PLAYER_SIZE, PLAYER_SIZE, PLAYER_IMG);
         score = 0;
-        IntStream.range(0, MAX_ENEMIES).mapToObj(i -> this.newEnemy()).forEach(enemies::add);
+        maxEnemies = 10;  //cheezy fix for bug with maxEnemies because after the restart there would be a really high number of enemies
+        IntStream.range(0, maxEnemies).mapToObj(i -> this.newEnemy()).forEach(enemies::add);        //does not update after setup
     }
 
     public void run(GraphicsContext gc) {
@@ -176,17 +178,17 @@ public class SpaceInvaders extends Application {
         gc.fillRect(0, 0, WIDTH, HEIGHT);
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setFont(Font.font(20));
-        gc.setFill(Color.WHITE);
+        gc.setFill(Color.YELLOW);
         gc.fillText("Score: " + score, 60,  20);
         gc.fillText("Shots left: " + (maxShots - shots.size()), 180,  20);
         gc.fillText("Shots max: " + maxShots, 320,  20);
+        gc.fillText("Enemies: " + maxEnemies, 460,  20);
         gc.setTextAlign(TextAlignment.RIGHT);
         gc.fillText("Version: " + version, 780,  20);
         gc.setTextAlign(TextAlignment.CENTER);
 
 
         if(gameOver) {
-            mediaPlayer.stop();
             gc.setFont(Font.font(35));
             gc.setFill(Color.YELLOW);
             gc.fillText("Game Over \n" +

@@ -5,6 +5,10 @@ import com.example.javafx_space_invaders.Universe;
 
 import java.util.Random;
 
+/**
+ * The Universe class represents celestial bodies in the Space Invaders game.
+ * It includes methods to initialize and draw these celestial bodies.
+ */
 public class Universe {
 
     private static final Random RAND = new Random();
@@ -13,6 +17,11 @@ public class Universe {
     private int h, w, r, g, b;
     private double opacity;
 
+    /**
+     * Constructs a Universe object with random initial values.
+     *
+     * @param spaceInvaders The SpaceInvaders object to associate with.
+     */
     public Universe(SpaceInvaders spaceInvaders) {
         this.spaceInvaders = spaceInvaders;
         posX = SpaceInvaders.RAND.nextInt(SpaceInvaders.WIDTH);
@@ -27,6 +36,10 @@ public class Universe {
         if (opacity > 0.5) opacity = 0.5;
     }
 
+    /**
+     * Draws the celestial body on the game canvas.
+     * Adjusts opacity and moves the body downward in each draw cycle.
+     * */
     public void draw() {
         if (opacity > 0.8) opacity -= 0.01;
         if (opacity < 0.1) opacity += 0.01;
