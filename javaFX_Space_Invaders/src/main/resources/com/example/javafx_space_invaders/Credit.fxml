@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="400.0"
+      xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.javafx_space_invaders.CreditController"
+      style="-fx-background-image: url('file:./images/credits.jpg'); -fx-background-size: cover;">
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <VBox alignment="CENTER">
+        <Text text="Main Graphic Designer: Me" textAlignment="CENTER">
+            <font>
+                <Font size="18.0" />
+            </font>
+            <fill>
+                <Color fx:id="YELLOW" red="1.0" green="1.0" blue="0.0" />
+            </fill>
+        </Text>
+        <Pane minHeight="10.0" />
+    </VBox>
+
+    <VBox alignment="CENTER">
+        <Text text="Story Written by: Me" textAlignment="CENTER">
+            <font>
+                <Font size="18.0" />
+            </font>
+            <fill>
+                <Color fx:id="YELLOW" red="1.0" green="1.0" blue="0.0" />
+            </fill>
+        </Text>
+        <Pane minHeight="10.0" />
+    </VBox>
+
+    <VBox alignment="CENTER">
+        <Text text="Certainly Based on a True Story" textAlignment="CENTER">
+            <font>
+                <Font size="14.0" />
+            </font>
+            <fill>
+                <Color fx:id="YELLOW" red="1.0" green="1.0" blue="0.0" />
+            </fill>
+        </Text>
+        <Pane minHeight="10.0" />
+    </VBox>
+
+</VBox>

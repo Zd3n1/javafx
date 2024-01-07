@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<VBox alignment="CENTER" prefHeight="298.0" prefWidth="342.0" spacing="20.0"
+      xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.javafx_space_invaders.HelloController"
+      style="-fx-background-image: url('file:./images/background.png'); -fx-background-size: cover;">
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <!-- Logo Image -->
+    <HBox alignment="CENTER">
+        <ImageView>
+            <image>
+                <Image url="file:./images/logo.png" />          <!--//sice cervene ale funguje-->
+            </image>
+        </ImageView>
+    </HBox>
+
+    <!-- Centered Title -->
+    <Label fx:id="welcomeText" alignment="CENTER">
+        <textFill>
+            <LinearGradient endX="0.5" endY="0.5" startX="0.5" startY="0.0">
+                <stops>
+                    <Stop color="#000000" offset="0.0"/>
+                    <Stop color="#ff9900" offset="1.0"/>
+                </stops>
+            </LinearGradient>
+        </textFill>
+        <font>
+            <Font name="System Bold" size="24.0" />
+        </font>
+        <VBox.margin>
+            <Insets bottom="10.0" />
+        </VBox.margin>
+    </Label>
+
+    <!-- Start Button -->
+    <Button onAction="#onHelloButtonClick" prefHeight="40.0" prefWidth="152.0" text="Start" />
+
+    <!-- Version Button -->
+    <GridPane hgap="10" vgap="20" alignment="CENTER">
+        <Button onAction="#onRetroButtonClick" prefHeight="25.0" prefWidth="71.0" text="RETRO" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Button onAction="#onComicsButtonClick" prefHeight="25.0" prefWidth="71.0" text="Comics" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Button onAction="#onSWButtonClick" prefHeight="25.0" prefWidth="71.0" text="Star Wars" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Button onAction="#onSTButtonClick" prefHeight="25.0" prefWidth="71.0" text="Star Trek" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    </GridPane>
+
+    <Button onAction="#onCreditsButtonClick" prefHeight="25.0" prefWidth="152.0" text="Credits" />
+
+</VBox>
