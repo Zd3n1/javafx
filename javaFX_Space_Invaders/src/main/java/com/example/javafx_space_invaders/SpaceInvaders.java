@@ -3,6 +3,7 @@ package com.example.javafx_space_invaders;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -36,8 +37,9 @@ public class SpaceInvaders extends Application {
     private static final int HEIGHT = 900;
     private static final int PLAYER_SIZE = 60;
 
-    static Image EXPLOSION_IMG = new Image("file:./images/explosion.png");
-    static Image EXPLOSION_8_IMG = new Image("file:./images/explosion8bit.png");
+
+    static Image EXPLOSION_IMG = new Image("file:." + File.separator + "images" + File.separator + "explosion.png");
+    static Image EXPLOSION_8_IMG = new Image("file:." + File.separator + "images" + File.separator + "explosion8bit.png");
     static final int EXPLOSION_W = 128;
     static final int EXPLOSION_ROWS = 3;
     static final int EXPLOSION_COL = 3;
@@ -50,7 +52,7 @@ public class SpaceInvaders extends Application {
      * The version of the game, determining the appearance of game elements.
      */
     //static String version;
-    static String version = "comic/c";
+    static String version = "comic" + File.separator + "c";
     //static String version = "8bit/b";
     //static String version = "sw/SW";
     //static String version = "st/ST";
@@ -60,22 +62,24 @@ public class SpaceInvaders extends Application {
 
     static int maxScore = 0;
 
+    static String baseImagePath = "file:." + File.separator + "images" + File.separator;
+
 
     static void loadImages(){
         ENEMY_IMG = new Image[]{
-                new Image("file:./images/" + version + "1.png"),
-                new Image("file:./images/" + version + "2.png"),
-                new Image("file:./images/" + version + "3.png"),
-                new Image("file:./images/" + version + "4.png"),
-                new Image("file:./images/" + version + "5.png"),
-                new Image("file:./images/" + version + "6.png"),
-                new Image("file:./images/" + version + "7.png"),
-                new Image("file:./images/" + version + "8.png"),
-                new Image("file:./images/" + version + "9.png"),
-                new Image("file:./images/" + version + "10.png"),
+                new Image(baseImagePath + version + "1.png"),
+                new Image(baseImagePath + version + "2.png"),
+                new Image(baseImagePath + version + "3.png"),
+                new Image(baseImagePath + version + "4.png"),
+                new Image(baseImagePath + version + "5.png"),
+                new Image(baseImagePath + version + "6.png"),
+                new Image(baseImagePath + version + "7.png"),
+                new Image(baseImagePath + version + "8.png"),
+                new Image(baseImagePath + version + "9.png"),
+                new Image(baseImagePath + version + "10.png")
 
         };
-        PLAYER_IMG = new Image("file:./images/" + version + ".png");
+        PLAYER_IMG = new Image(baseImagePath + version + ".png");
     }
 
     /**
@@ -105,6 +109,8 @@ public class SpaceInvaders extends Application {
 
     String music() {
         String musicFile;
+
+        // wasnt able to get File.separator working here so maybe music selection would be limited to 1 same song on Windows
 
         switch (version) {
             case "8bit/b":
