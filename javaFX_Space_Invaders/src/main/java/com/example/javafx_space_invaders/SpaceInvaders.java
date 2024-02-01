@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -79,7 +80,11 @@ public class SpaceInvaders extends Application {
                 new Image(baseImagePath + version + "10.png")
 
         };
+//        ImageView imageView = new ImageView(new Image("file:." + File.separator + "images" + File.separator + version + ".png"));
+//        imageView.setPreserveRatio(true);
+//        PLAYER_IMG = imageView.getImage();
         PLAYER_IMG = new Image(baseImagePath + version + ".png");
+
     }
 
     /**

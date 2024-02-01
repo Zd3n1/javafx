@@ -11,6 +11,4 @@ module com.example.javafx_space_invaders {
 
     opens com.example.javafx_space_invaders to javafx.fxml;
     exports com.example.javafx_space_invaders;
-    exports com.example.javafx_space_invaders.nepouzite;
-    opens com.example.javafx_space_invaders.nepouzite to javafx.fxml;
 }
