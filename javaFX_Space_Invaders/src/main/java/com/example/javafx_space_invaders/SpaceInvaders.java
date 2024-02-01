@@ -175,9 +175,21 @@ public class SpaceInvaders extends Application {
         enemies = new ArrayList<>();
         player = new Rocket(WIDTH / 2, HEIGHT - PLAYER_SIZE, PLAYER_SIZE, PLAYER_IMG);
         score = 0;
-        maxEnemies = 10;  //cheezy fix for bug with maxEnemies because after the restart there would be a really high number of enemies
-        IntStream.range(0, maxEnemies).mapToObj(i -> this.newEnemy()).forEach(enemies::add);        //does not update after setup
+        maxEnemies = 10;
+
+        // delay
+        Timeline enemySpawner = new Timeline();
+        for (int i = 0; i < maxEnemies; i++) {
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(i), event -> {
+                Enemy newEnemy = this.newEnemy();
+                enemies.add(newEnemy);
+            });
+            enemySpawner.getKeyFrames().add(keyFrame);
+        }
+
+        enemySpawner.play();
     }
+
 
     public void run(GraphicsContext gc) {
         gc.setFill(Color.grayRgb(20));
@@ -317,6 +329,7 @@ public class SpaceInvaders extends Application {
     public class Enemy extends Rocket {
 
         int SPEED = (score/5)+2;
+        // number of ships at the start
 
         public Enemy(int posX, int posY, int size, Image image) {
             super(posX, posY, size, image);
